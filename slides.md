@@ -40,3 +40,28 @@ becomes
 </div>
 
 From: https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
+
+---
+
+Let’s say we have a followers array that looks like this:
+```json
+{
+    "followers": [
+        { "age": 35, "name": "Mary White"},
+        { "age": 26, "name": "Alex Jones"},
+        { "age": 19, "name": "Lisa Smith"}
+    ]
+}
+```
+This document will be flattened as we described previously, but the result will look like this:
+
+```
+{
+    "followers.age":    [19, 26, 35],
+    "followers.name":   [alex, jones, lisa, smith, mary, white]
+}
+```
+The correlation between {age: 35} and {name: Mary White} has been lost.
+Correlated inner objects, which are able to answer queries like these, are called nested objects.
+
+From: https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
