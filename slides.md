@@ -25,3 +25,18 @@ From: https://www.elastic.co/blog/found-text-analysis-part-1
 <img src="https://www.elastic.co/assets/bltee4e0b427d8fdad4/custom_analyzers_diag.png" alt="Custom Analysis Flow" style="height:550px; width: 350px;"/>
 
 From: https://www.elastic.co/blog/found-text-analysis-part-1
+
+---
+
+# Standard analyzer
+
+The standard analyzer is the default analyzer that Elasticsearch uses. It is the best general choice for analyzing text that may be in any language. It splits the text on word boundaries, as defined by the Unicode Consortium, and removes most punctuation. Finally, it lowercases all terms.
+<div style="text-align: center;">
+
+```Set the shape to semi-transparent by calling set_trans(5)```
+becomes
+
+```set, the, shape, to, semi, transparent, by, calling, set_trans, 5```
+</div>
+
+From: https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
