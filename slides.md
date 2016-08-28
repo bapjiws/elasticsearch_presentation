@@ -8,6 +8,8 @@
 
 > The default edit distance is 2, but an edit distance of 1 should be sufficient to catch 80% of all human misspellings
 
+From: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#_fuzziness
+
 ---
 
 #  The Components of an Analyzer
