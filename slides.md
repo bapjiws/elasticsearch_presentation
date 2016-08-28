@@ -1,4 +1,4 @@
-# Elasticsearch as we know it
+# <p style="text-align: center;">Elasticsearch as we know it<p>
 
 ---
 
@@ -12,12 +12,14 @@
 
 #  The Components of an Analyzer
 
-
+![ The Components of an Analyzer](https://www.elastic.co/assets/blt51e787daed39eae9/Signatures.svg)
 
 From: https://www.elastic.co/blog/found-text-analysis-part-1
 
 --- 
 
 # Custom Analysis Flow
+
+<img src="https://www.elastic.co/assets/bltee4e0b427d8fdad4/custom_analyzers_diag.png" alt="Custom Analysis Flow" style="height:550px; width: 350px;"/>
 
 From: https://www.elastic.co/blog/found-text-analysis-part-1
