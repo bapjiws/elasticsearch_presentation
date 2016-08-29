@@ -23,6 +23,46 @@ From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 
 ---
+
+> The inverted index allows queries to look up the search term in unique sorted list of terms, and from that immediately have access to the list of documents that contain the term.
+
+> Sorting, aggregations, and access to field values in scripts requires a different data access pattern. Instead of looking up the term and finding documents, we need to be able to look up the document and find the terms that it has in a field.
+https://www.elastic.co/guide/en/elasticsearch/reference/current/doc-values.html
+
+---
+
+> When you sort on a field, Elasticsearch needs access to the value of that field for every document that matches the query. The inverted index, which performs very well when searching, is not the ideal structure for sorting on field values:
+
+> - When searching, we need to be able to map a term to a list of documents.
+> - When sorting, we need to map a document to its terms. In other words, we need to “uninvert” the inverted index.
+
+> This “uninverted” structure is often called a “column-store” in other systems. Essentially, it stores all the values for a single field together in a single column of data, which makes it very efficient for operations like sorting.
+
+> In Elasticsearch, this column-store is known as *doc values*, and is enabled by default. Doc values are created at index-time: when a field is indexed, Elasticsearch adds the tokens to the inverted index for search. But it also extracts the terms and adds them to the columnar doc values.
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
+
+---
+
+> Doc values are used in several places in Elasticsearch:
+
+> - Sorting on a field
+> - Aggregations on a field
+> - Certain filters (for example, geolocation filters)
+> - Scripts that refer to fields
+
+https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
+
+---
+# Uninverting a field into a field cache
+
+> The inverted index cannot give you the value of a field given a document ID; it's good for finding documents given a value. Therefore, as shown in the figure below, all the documents' values for a field are loaded entirely into memory the first time you try use it for aggregations, sorting or scripting.
+
+![Uninverting a field into a field cache](https://www.elastic.co/assets/bltb6115f73315ac310/uninverting.svg)
+
+https://www.elastic.co/blog/found-sizing-elasticsearch
+
+---
 # The Damerau-Levenshtein distance
 
 > [Elasticsearch] uses the Damerau-Levenshtein distance to find all terms with a maximum of two changes, where a change is the insertion, deletion or substitution of a single character, or transposition of two adjacent characters.
