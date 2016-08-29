@@ -1,7 +1,28 @@
 # <p style="text-align: center;">Elasticsearch as we know it<p>
 
 ---
+# Inverted Index
+> Elasticsearch uses a structure called an *inverted index*, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
 
+From: https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
+
+---
+# Sample documents and resulting inverted index
+
+![Inverted Indexes and Index Terms](https://www.elastic.co/assets/bltb03758c3e981d9e4/inverted-index.svg)
+
+From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+
+---
+# Why it's useful
+
+> The inverted index maps *terms* to documents (and possibly positions in the documents) containing the term. Since the terms in the *dictionary* are sorted, we can quickly find a term, and subsequently its occurrences in the *postings*-structure. This is contrary to a "forward index", which lists terms related to a specific document.
+> [...] 
+> Consequently, an *index term* is the *unit of search*. 
+
+From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+
+---
 # The Damerau-Levenshtein distance
 
 > [Elasticsearch] uses the Damerau-Levenshtein distance to find all terms with a maximum of two changes, where a change is the insertion, deletion or substitution of a single character, or transposition of two adjacent characters.
