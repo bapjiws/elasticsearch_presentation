@@ -12,7 +12,7 @@ From: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-
 
 ---
 
-#  The Components of an Analyzer
+#  <p style="text-align: center;">The Components of an Analyzer</p>
 
 ![ The Components of an Analyzer](https://www.elastic.co/assets/blt51e787daed39eae9/Signatures.svg)
 
@@ -20,17 +20,17 @@ From: https://www.elastic.co/blog/found-text-analysis-part-1
 
 --- 
 
-# Custom Analysis Flow
-
+#  <p style="text-align: center;"> Custom Analysis Flow </p>
+<div style="text-align: center;">
 <img src="https://www.elastic.co/assets/bltee4e0b427d8fdad4/custom_analyzers_diag.png" alt="Custom Analysis Flow" style="height:550px; width: 350px;"/>
+</div>
 
 From: https://www.elastic.co/blog/found-text-analysis-part-1
 
 ---
-
 # Standard analyzer
 
-The standard analyzer is the default analyzer that Elasticsearch uses. It is the best general choice for analyzing text that may be in any language. It splits the text on word boundaries, as defined by the Unicode Consortium, and removes most punctuation. Finally, it lowercases all terms.
+> The standard analyzer is the default analyzer that Elasticsearch uses. It is the best general choice for analyzing text that may be in any language. It splits the text on word boundaries, as defined by the Unicode Consortium, and removes most punctuation. Finally, it lowercases all terms.
 <div style="text-align: center;">
 
 ```Set the shape to semi-transparent by calling set_trans(5)```
@@ -43,8 +43,10 @@ From: https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro
 
 ---
 
-Let’s say we have a followers array that looks like this:
-```json
+# Nested objects
+
+Let's say we have a followers array that looks like this:
+```
 {
     "followers": [
         { "age": 35, "name": "Mary White"},
@@ -53,7 +55,7 @@ Let’s say we have a followers array that looks like this:
     ]
 }
 ```
-This document will be flattened as we described previously, but the result will look like this:
+The result will look like this:
 
 ```
 {
@@ -61,7 +63,12 @@ This document will be flattened as we described previously, but the result will 
     "followers.name":   [alex, jones, lisa, smith, mary, white]
 }
 ```
-The correlation between {age: 35} and {name: Mary White} has been lost.
-Correlated inner objects, which are able to answer queries like these, are called nested objects.
+The correlation between **{age: 35}** and **{name: Mary White}** is lost.
 
-From: https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
+---
+# Nested objects (continued)
+
+*Correlated* inner objects, which are able to answer queries like these, are called *nested objects*.
+
+From:
+https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
