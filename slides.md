@@ -1,6 +1,34 @@
 # <p style="text-align: center;">Elasticsearch as we know it<p>
 
 ---
+
+# Some key concepts
+
+**Index** 
+> An index is a collection of documents that have somewhat similar characteristics[...] An index is like a *database* in a relational database. It has a mapping which defines multiple types.
+
+**Mapping**
+> A mapping is like a *schema definition* in a relational database.
+
+Sources: https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
+
+---
+
+# Some key concepts (continued)
+
+**Type**
+> A type is like a *table* in a relational database. Each type has a list of fields that can be specified for documents of that type. The mapping defines how each field in the document is analyzed.
+
+**Field**
+> A document contains a list of fields, or key-value pairs... A field is similar to a column in a table in a relational database.
+
+Sources: https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
+https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
+
+
+---
+
 # Inverted Index
 > Elasticsearch uses a structure called an *inverted index*, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
 
