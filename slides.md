@@ -10,8 +10,34 @@
 **Mapping**
 > A mapping is like a *schema definition* in a relational database.
 
-Sources: https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
-https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
+---
+# Lucene practical scoring formula
+
+<img src="https://dzone.com/storage/rc-covers/15333-thumb.png" alt="Lucene practical scoring formula" style="height:160px; width: 990px;"/>
+
+- "q" means "query" 
+- "d" means document 
+- "t" "term"
+- "t in q" means "The sum of the weights for each term t in the query q for document d".
+
+
+---
+# Scoring factors
+
+Factor       |	Explanation
+------------ | -------------
+**coord(q,d) aka "coordination factor"** | "Typically, a document that contains more of the query’s terms will receive a higher score than another document with fewer query terms".
+**queryNorm(q) aka "query normalization factor"** |	"...attempts to make scores from different queries (or even different indexes) comparable".
+
+---
+# Scoring factors (continued)
+
+Factor       |	Explanation
+------------ | -------------
+**tf(t in d) aka "term frequency"**	| "Documents that have more occurrences of a given term receive a higher score".
+**idf(t) aka "inverse document frequency"**	| "... rarer terms give higher contribution to the total score".
+t.getBoost() |	"A search-time boost of term t in the query q."
+norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the weight"
 
 ---
 
@@ -23,23 +49,15 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
 **Field**
 > A document contains a list of fields, or key-value pairs... A field is similar to a column in a table in a relational database.
 
-Sources: https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
-https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
-
-
 ---
 
 # Inverted Index
 > Elasticsearch uses a structure called an *inverted index*, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
 
-From: https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
-
 ---
 # Sample documents and resulting inverted index
 
 ![Inverted Indexes and Index Terms](https://www.elastic.co/assets/bltb03758c3e981d9e4/inverted-index.svg)
-
-From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 
 ---
 # Why it's useful
@@ -48,14 +66,12 @@ From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 > [...] 
 > Consequently, an *index term* is the *unit of search*. 
 
-From: https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
-
 ---
 
 > The inverted index allows queries to look up the search term in unique sorted list of terms, and from that immediately have access to the list of documents that contain the term.
 
 > Sorting, aggregations, and access to field values in scripts requires a different data access pattern. Instead of looking up the term and finding documents, we need to be able to look up the document and find the terms that it has in a field.
-https://www.elastic.co/guide/en/elasticsearch/reference/current/doc-values.html
+
 
 ---
 
@@ -79,8 +95,6 @@ https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
 > - Certain filters (for example, geolocation filters)
 > - Scripts that refer to fields
 
-https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
-
 ---
 # Uninverting a field into a field cache
 
@@ -88,7 +102,7 @@ https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
 
 ![Uninverting a field into a field cache](https://www.elastic.co/assets/bltb6115f73315ac310/uninverting.svg)
 
-https://www.elastic.co/blog/found-sizing-elasticsearch
+
 
 ---
 # The Damerau-Levenshtein distance
@@ -97,15 +111,11 @@ https://www.elastic.co/blog/found-sizing-elasticsearch
 
 > The default edit distance is 2, but an edit distance of 1 should be sufficient to catch 80% of all human misspellings
 
-From: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#_fuzziness
-
 ---
 
 #  <p style="text-align: center;">The Components of an Analyzer</p>
 
 ![ The Components of an Analyzer](https://www.elastic.co/assets/blt51e787daed39eae9/Signatures.svg)
-
-From: https://www.elastic.co/blog/found-text-analysis-part-1
 
 --- 
 
@@ -113,8 +123,6 @@ From: https://www.elastic.co/blog/found-text-analysis-part-1
 <div style="text-align: center;">
 <img src="https://www.elastic.co/assets/bltee4e0b427d8fdad4/custom_analyzers_diag.png" alt="Custom Analysis Flow" style="height:550px; width: 350px;"/>
 </div>
-
-From: https://www.elastic.co/blog/found-text-analysis-part-1
 
 ---
 # Standard analyzer
@@ -127,8 +135,6 @@ becomes
 
 ```set, the, shape, to, semi, transparent, by, calling, set_trans, 5```
 </div>
-
-From: https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
 
 ---
 
@@ -159,5 +165,41 @@ The correlation between **{age: 35}** and **{name: Mary White}** is lost.
 
 *Correlated* inner objects, which are able to answer queries like these, are called *nested objects*.
 
-From:
-https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
+---
+
+# Resources:
+
+Key concepts:
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
+
+
+
+Nested objects:
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
+
+Scoring and Lucene practical scoring formula:
+- https://dzone.com/refcardz/lucene
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/scoring-theory.html
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html
+
+---
+
+# Resources: 
+The Damerau-Levenshtein distance:
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#_fuzziness
+
+Text analysis and standard analyzer:
+- https://www.elastic.co/blog/found-text-analysis-part-1
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
+
+Inverted index:
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
+- https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+
+Doc values:
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
+- https://www.elastic.co/blog/found-sizing-elasticsearch
+
+
+
