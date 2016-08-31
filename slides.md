@@ -1,4 +1,4 @@
-# <p style="text-align: center;">Elasticsearch as we know it<p>
+# <p style="text-align: center;">Elasticsearch as we (I) know it<p>
 
 ---
 
@@ -22,44 +22,10 @@ A document contains a list of fields, or key-value pairs... A field is similar t
 
 ---
 
-# Resources:
-- https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
+# Resources on basic concepts:
+
+-  https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
 - https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
-
----
-
-# Lucene practical scoring formula
-
-!["Lucene practical scoring formula"](https://dzone.com/storage/rc-covers/15333-thumb.png)
-
-<div style="text-align: center;">
-<img src="https://dzone.com/storage/rc-covers/15333-thumb.png" alt="Lucene practical scoring formula" style="height:160px; width: 990px;"/>
-</div>
-
-- "q" means "query" 
-- "d" means document 
-- "t" "term"
-- "t in q" means "The sum of the weights for each term t in the query q for document d".
-
----
-
-# Scoring factors
-
-Factor       |	Explanation
------------- | -------------
-coord(q,d) aka "coordination factor" | "Typically, a document that contains more of the query’s terms will receive a higher score..."
-queryNorm(q) aka "query normalization factor" |	"...attempts to make scores from different queries (or even different indexes) comparable"
-t.getBoost() |	"A search-time boost of term t in the query q."
-
----
-
-# Scoring factors (continued)
-
-Factor       |	Explanation
------------- | -------------
-tf(t in d) aka "term frequency"	| "Documents that have more occurrences of a given term receive a higher score"
-idf(t) aka "inverse document frequency"	| "... rarer terms give higher contribution to the total score".
-norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the weight"
 
 ---
 
@@ -68,6 +34,8 @@ norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the wei
 Elasticsearch uses a structure called an *inverted index*, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
 
 ---
+
+# Here's how it looks like
 
 The inverted index maps *terms* to documents (and possibly positions in the documents) containing the term. Since the terms in the *dictionary* are sorted, we can quickly find a term, and subsequently its occurrences in the *postings*-structure.
 
@@ -80,6 +48,8 @@ The inverted index maps *terms* to documents (and possibly positions in the docu
 Sorting, aggregations, and access to field values in scripts requires a different data access pattern. Instead of looking up the term and finding documents, we need to be able to look up the document and find the terms that it has in a field.
 
 ---
+
+# The difference
 
 - When searching, we need to be able to map a term to a list of documents.
 - When sorting, we need to map a document to its terms. In other words, we need to “uninvert” the inverted index.
@@ -96,6 +66,8 @@ In Elasticsearch, this column-store is known as *doc values*, and is enabled by 
 
 ---
 
+# Doc values (continued)
+
 Doc values are used in several places in Elasticsearch:
 
 - Sorting on a field
@@ -104,6 +76,16 @@ Doc values are used in several places in Elasticsearch:
 - Scripts that refer to fields
 
 ---
+
+# Resources on inverted index and doc values:
+
+- - https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
+- https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
+- https://www.elastic.co/blog/found-sizing-elasticsearch
+
+---
+
 
 #  <p style="text-align: center;">The Components of an Analyzer</p>
 
@@ -138,6 +120,14 @@ Elasticsearch uses the Damerau-Levenshtein distance to find all terms with a max
 
 ---
 
+# Resources on text analysis, standard analyzer, and the Damerau-Levenshtein distance:
+
+- https://www.elastic.co/blog/found-text-analysis-part-1
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#_fuzziness
+
+---
+
 # Nested objects
 
 Let's say we have a followers array that looks like this:
@@ -165,36 +155,46 @@ The correlation between **{age: 35}** and **{name: Mary White}** is lost.
 
 *Correlated* inner objects, which are able to answer queries like these, are called *nested objects*.
 
----
-
-# Resources on inverted index:
-- https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
-- https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
-
----
-
-# Resources on doc values:
-- https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
-- https://www.elastic.co/blog/found-sizing-elasticsearch
-
----
-
-# Resources on the Damerau-Levenshtein distance: 
-
-- https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html#_fuzziness
-
----
-
-# Resources on text analysis and standard analyzer:
-
-- https://www.elastic.co/blog/found-text-analysis-part-1
-- https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
+Nestedness should be kept in mind **both** when we search and when we sort. 
 
 ---
 
 # Resources on nested objects:
 
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
+
+---
+
+# Lucene practical scoring formula
+
+<div style="text-align: center;">
+<img src="https://dzone.com/storage/rc-covers/15333-thumb.png" alt="Lucene practical scoring formula" style="height:160px; width: 990px;"/>
+</div>
+
+- "q" means "query" 
+- "d" means document 
+- "t" "term"
+- "t in q" means "The sum of the weights for each term t in the query q for document d".
+
+---
+
+# Scoring factors
+
+Factor       |	Explanation
+------------ | -------------
+coord(q,d) aka "coordination factor" | "Typically, a document that contains more of the query’s terms will receive a higher score..."
+queryNorm(q) aka "query normalization factor" |	"...attempts to make scores from different queries (or even different indexes) comparable"
+t.getBoost() |	"A search-time boost of term t in the query q."
+
+---
+
+# Scoring factors (continued)
+
+Factor       |	Explanation
+------------ | -------------
+tf(t in d) aka "term frequency"	| "Documents that have more occurrences of a given term receive a higher score"
+idf(t) aka "inverse document frequency"	| "... rarer terms give higher contribution to the total score".
+norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the weight"
 
 ---
 
