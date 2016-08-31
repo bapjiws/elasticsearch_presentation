@@ -2,7 +2,7 @@
 
 ---
 
-# Some key concepts
+# Some Key Concepts
 
 **Index** 
 An index is a collection of documents that have somewhat similar characteristics[...] An index is like a *database* in a relational database. It has a mapping which defines multiple types.
@@ -12,7 +12,7 @@ A mapping is like a *schema definition* in a relational database.
 
 ---
 
-# Some key concepts (continued)
+# Some Key Concepts (Continued)
 
 **Type**
 A type is like a *table* in a relational database. Each type has a list of fields that can be specified for documents of that type. The mapping defines how each field in the document is analyzed.
@@ -22,7 +22,7 @@ A document contains a list of fields, or key-value pairs... A field is similar t
 
 ---
 
-# Resources on basic concepts:
+# Resources:
 
 -  https://www.elastic.co/guide/en/elasticsearch/reference/current/_basic_concepts.html
 - https://www.elastic.co/guide/en/elasticsearch/reference/current/glossary.html
@@ -35,7 +35,7 @@ Elasticsearch uses a structure called an *inverted index*, which is designed to 
 
 ---
 
-# Here's how it looks like
+# Here's How It Looks Like
 
 The inverted index maps *terms* to documents (and possibly positions in the documents) containing the term. Since the terms in the *dictionary* are sorted, we can quickly find a term, and subsequently its occurrences in the *postings*-structure.
 
@@ -49,7 +49,7 @@ Sorting, aggregations, and access to field values in scripts requires a differen
 
 ---
 
-# The difference
+# The Difference
 
 - When searching, we need to be able to map a term to a list of documents.
 - When sorting, we need to map a document to its terms. In other words, we need to “uninvert” the inverted index.
@@ -58,7 +58,7 @@ Sorting, aggregations, and access to field values in scripts requires a differen
 
 ---
 
-# Doc values
+# Doc Values
 
 This “uninverted” structure is often called a “column-store” in other systems. Essentially, it stores all the values for a single field together in a single column of data, which makes it very efficient for operations like sorting.
 
@@ -66,7 +66,7 @@ In Elasticsearch, this column-store is known as *doc values*, and is enabled by 
 
 ---
 
-# Doc values (continued)
+# Doc Values (Continued)
 
 Doc values are used in several places in Elasticsearch:
 
@@ -77,15 +77,14 @@ Doc values are used in several places in Elasticsearch:
 
 ---
 
-# Resources on inverted index and doc values:
+# Resources:
 
-- - https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html
 - https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/docvalues-intro.html
 - https://www.elastic.co/blog/found-sizing-elasticsearch
 
 ---
-
 
 #  <p style="text-align: center;">The Components of an Analyzer</p>
 
@@ -99,7 +98,7 @@ Doc values are used in several places in Elasticsearch:
 </div>
 
 ---
-# Standard analyzer
+# Standard Analyzer
 
 The standard analyzer is the default analyzer that Elasticsearch uses. It is the best general choice for analyzing text that may be in any language. It splits the text on word boundaries, as defined by the Unicode Consortium, and removes most punctuation. Finally, it lowercases all terms.
 <div style="text-align: center;">
@@ -112,7 +111,7 @@ becomes
 
 ---
 
-# The Damerau-Levenshtein distance as a measure of fuzziness
+# The Damerau-Levenshtein Distance as a Measure of Fuzziness
 
 Elasticsearch uses the Damerau-Levenshtein distance to find all terms with a maximum of two changes, where a change is the insertion, deletion or substitution of a single character, or transposition of two adjacent characters.
 
@@ -120,7 +119,7 @@ Elasticsearch uses the Damerau-Levenshtein distance to find all terms with a max
 
 ---
 
-# Resources on text analysis, standard analyzer, and the Damerau-Levenshtein distance:
+# Resources:
 
 - https://www.elastic.co/blog/found-text-analysis-part-1
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/analysis-intro.html
@@ -128,7 +127,7 @@ Elasticsearch uses the Damerau-Levenshtein distance to find all terms with a max
 
 ---
 
-# Nested objects
+# Nested Objects
 
 Let's say we have a followers array that looks like this:
 ```
@@ -151,21 +150,21 @@ The result will look like this:
 The correlation between **{age: 35}** and **{name: Mary White}** is lost.
 
 ---
-# Nested objects (continued)
+# Nested Objects (Continued)
 
 *Correlated* inner objects, which are able to answer queries like these, are called *nested objects*.
 
-Nestedness should be kept in mind **both** when we search and when we sort. 
+Warning: nestedness should be kept in mind **both** when we search and when we sort!
 
 ---
 
-# Resources on nested objects:
+# Resources:
 
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/complex-core-fields.html#object-arrays
 
 ---
 
-# Lucene practical scoring formula
+# Lucene Practical Scoring Formula
 
 <div style="text-align: center;">
 <img src="https://dzone.com/storage/rc-covers/15333-thumb.png" alt="Lucene practical scoring formula" style="height:160px; width: 990px;"/>
@@ -178,7 +177,7 @@ Nestedness should be kept in mind **both** when we search and when we sort.
 
 ---
 
-# Scoring factors
+# Scoring Factors
 
 Factor       |	Explanation
 ------------ | -------------
@@ -188,7 +187,7 @@ t.getBoost() |	"A search-time boost of term t in the query q."
 
 ---
 
-# Scoring factors (continued)
+# Scoring Factors (Continued)
 
 Factor       |	Explanation
 ------------ | -------------
@@ -198,13 +197,8 @@ norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the wei
 
 ---
 
-# Resources on scoring and Lucene practical scoring formula:
+# Resources:
 
 - https://dzone.com/refcardz/lucene
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/scoring-theory.html
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html
-
-
-
-
-
