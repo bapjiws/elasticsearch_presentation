@@ -1,4 +1,4 @@
-# <p style="text-align: center;">Elasticsearch as we (I) know it<p>
+# <p style="text-align: center;">Elasticsearch as We (I) Know It<p>
 
 ---
 
