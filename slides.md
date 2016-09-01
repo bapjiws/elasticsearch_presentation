@@ -171,9 +171,9 @@ Warning: nestedness should be kept in mind **both** when we search and when we s
 </div>
 
 - "q" means "query" 
-- "d" means document 
+- "d" means "document" 
 - "t" "term"
-- "t in q" means "The sum of the weights for each term t in the query q for document d".
+- "t in q" means "the sum of the weights for each term t in the query q for document d"
 
 ---
 
@@ -181,9 +181,9 @@ Warning: nestedness should be kept in mind **both** when we search and when we s
 
 Factor       |	Explanation
 ------------ | -------------
-coord(q,d) aka "coordination factor" | "Typically, a document that contains more of the query’s terms will receive a higher score..."
-queryNorm(q) aka "query normalization factor" |	"...attempts to make scores from different queries (or even different indexes) comparable"
-t.getBoost() |	"A search-time boost of term t in the query q."
+coord(q,d) aka "coordination factor" | The more query terms that appear in the document, the greater the chances that the document is a good match for the query
+queryNorm(q) aka "query normalization factor" |	 Is an attempt to normalize a query so that the results from one query may be compared with the results of another
+t.getBoost() |	A search-time boost of term t in the query q
 
 ---
 
@@ -191,9 +191,9 @@ t.getBoost() |	"A search-time boost of term t in the query q."
 
 Factor       |	Explanation
 ------------ | -------------
-tf(t in d) aka "term frequency"	| "Documents that have more occurrences of a given term receive a higher score"
-idf(t) aka "inverse document frequency"	| "... rarer terms give higher contribution to the total score".
-norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the weight"
+tf(t in d) aka "term frequency"	| The more times a term appears within the field we are querying in the current document, the more relevant is this document.
+idf(t) aka "inverse document frequency"	| The more frequently the term appears in all the documents in the index, the less weight it has. I.e., rarer terms give higher contribution to the total score".
+norm(t,d) aka "field-length norm" | The shorter the field, the *higher* the weight: if a term appears in a short field it is more likely that the content of that field is about the term than if the same term appears in a much bigger field
 
 ---
 
@@ -202,3 +202,4 @@ norm(t,d) aka "field-length norm" | "The shorter the field, the *higher* the wei
 - https://dzone.com/refcardz/lucene
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/scoring-theory.html
 - https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html
+- https://www.elastic.co/guide/en/elasticsearch/guide/current/relevance-is-broken.html
